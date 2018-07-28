@@ -1,4 +1,4 @@
-o# CoffeeBot
+# CoffeeBot
 
 A coffee ordering bot that takes user coffee orders and returns the price.
 
