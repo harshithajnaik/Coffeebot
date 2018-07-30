@@ -193,14 +193,14 @@ def message(bot, update):
     global context 
     global final  
     global conversation 
-    conversation= ConversationV1(username='7e8a016b-2c28-4bdd-b6e8-2043febdf43e',  # TODO
-                                  password='Bi3ui0yvDAb0',  # TODO
+    conversation= ConversationV1(username='user name',  # TODO
+                                  password='*******',  # TODO
                                   version='2018-02-16')
                                   
 
     # get response from watson
     response = conversation.message(
-        workspace_id='154e610f-03b1-43e9-81c0-268b421b1c80',  # TODO
+        workspace_id='workspace ID',  # TODO
         input={'text': update.message.text},
         context=context)
     #print(json.dumps(response, indent=2))
@@ -385,28 +385,51 @@ def message(bot, update):
 	    #inserting order
             try:
                 conn = sqlite3.connect("coffee_order.db")
-               
+                sum1 =0
+                cost=0
                 cur = conn.cursor()
                 print(conn ,cur)
                 cur.execute("SELect * from user_ord")
                 print (cur.fetchone())
                 for i in final:
-                  
-                    print("Entered loop")
-                    print(i['types'])
-                
-                    cur.execute("INSERT INTO user_ord(type,size,number) VALUES(?,?,?)",(i['types'],i['size'],i['number']))
-                    conn.commit()
-               
+                                                     
+                    #cur.execute("INSERT INTO user_ord(type,size,number) VALUES(?,?,?)",(i['types'],i['size'],i['number']))
+                    #conn.commit()
+                    cur.execute("SELECT * from coffee_types")
+                    rows = cur.fetchall()
 
-                cur.execute("SELECT * FROM user_ord")
+                   # for row in rows:
+                        #print(row)
+                    cur.execute("SELECT price from coffee_types where type=?",(i['types'].lower(),))
+                    p=cur.fetchone()[0]
+                    #p = cur.fetchone()[0]
+                    #print(p)
+                   
+                    k =i['size'].lower()
+                    if k == 'regular':
+                        cost =(p-5)* int(i['number'])
+                   
+                    elif k == 'large':
+                       cost = (p+5)* int(i['number'] )
+                       print("in elif")
+        
+                    else:
+                        cost = p * int(i['number'])
+                        print("its in else part")
+                    
+                    sum1+=cost
+                   
+               # print(sum1)
+                '''cur.execute("SELECT * FROM user_ord")
        
                 rows = cur.fetchall()
 
                 for row in rows:
                     print(row)
+                '''
                 cur.close()
                 conn.close()
+                update.message.reply_text("Please pay Rs.%s"% sum1)
                 print("db closed")
             except:
                 print("DB not working")
@@ -431,7 +454,7 @@ def help(bot, update):
     
 def main():
     # Create the Updater and pass it your bot's token.
-    updater = Updater('613631299:AAGlnBaw_z3gpUyDnzCNAbu2dE6c6ndvrTw')  # TODO
+    updater = Updater('Telegran ID')  # TODO
 
     # Get the dispatcher to register handlers
     dp = updater.dispatcher

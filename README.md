@@ -14,11 +14,11 @@ These instructions will get you a copy of the project up and running on your loc
 
 ## Deployment
 
-After successful installation  s harshitha@HARSHof GitHub, open git bash in the folder where you want this project to be cloned.
+After successful installation of GitHub, open git bash in the folder where you want this project to be cloned.
 Run the commands below one by one:
 
 ```sh
-1) git clone "https://github.com/harshithajnaik"
+1) git clone "https://github.com/harshithajnaik/Coffeebot.git"
 2) cd coffee_bot_
 3) python3 chat_bot.py
 ```
