@@ -14,9 +14,9 @@ You will be needing a Telegram account for creating a new bot. The machine learn
 
 * Install GitHub from [Git (Download link)](https://git-scm.com/downloads).
 
-*Install Telegram app from[Telegram(Downlaod link)](https://telegram.org).
+*Install Telegram app from [Telegram(Website link)](https://telegram.org).
 
-*Creating IBM Watson account from[IBM Watson(Download link)](https://console.bluemix.net/registration/?target=%2Fdeveloper%2Fwatson%2Fservices).
+*Creating IBM Watson account from [IBM Watson(Website link)](https://console.bluemix.net/registration/?target=%2Fdeveloper%2Fwatson%2Fservices).
 ## Deployment
 
 After successful installation of GitHub, open git bash in the folder where you want this project to be cloned.
