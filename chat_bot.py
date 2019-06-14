@@ -3,25 +3,26 @@ from watson_developer_cloud import ConversationV1
 import json
 import sqlite3
 from sqlite3 import Error
- 
-#to create a table initially. Uncomment if running the code first time.
-'''conn = sqlite3.connect("coffee_order.db")
-cur = conn.cursor()
-print(conn ,cur)
-cur.execute("CREATE TABLE IF NOT EXISTS user_ord(type text,size text,number real)")
-cur.execute("CREATE TABLE IF NOT EXISTS coffee_types(type text,price real)")
-cofee = [('black coffee', '35'),('irish coffee', '45'),('cappuccino', '25'),('macchiato', '40'),('espresso', '25'),('cafe latte', '50'),('turkish coffee', '25'),('frappuccino', '60'),('iced coffee', '45'),('flat white', '35'),]
-cur.executemany('INSERT OR IGNORE INTO coffee_types VALUES(?,?)',cofee) 
-       
-    #cur.execute("INSERT INTO user_ord VALUES ('black coffee','medium',2)")
-conn.commit()
-cur.execute("SELECT * FROM coffee_types")
-    #print cur.fetchone()
-rows = cur.fetchall()
-for row in rows:
-    print(row)'''	
-     
-
+    
+'''
+        #to create a table initially. Uncomment if running the code first time.
+	conn = sqlite3.connect("coffee_order.db")
+	cur = conn.cursor()
+	print(conn ,cur)
+	cur.execute("CREATE TABLE IF NOT EXISTS user_ord1(type text,size text,number real)")
+	cur.execute("CREATE TABLE IF NOT EXISTS coffee_types1(type text,price real)")
+	cofee = [('black coffee', '35'),('irish coffee', '45'),('cappuccino', '25'),('macchiato', '40'),('espresso', '25'),('cafe latte', '50'),('turkish coffee', '25'),('frappuccino', '60'),('iced coffee', '45'),('flat white', '35'),]
+	cur.executemany('INSERT OR IGNORE INTO coffee_types1 VALUES(?,?)',cofee) 
+	       
+	    #cur.execute("INSERT INTO user_ord VALUES ('black coffee','medium',2)")
+	conn.commit()
+	cur.execute("SELECT * FROM coffee_types1")
+	    #print cur.fetchone()
+	rows = cur.fetchall()
+	for row in rows:
+	    print(row)	
+	     
+'''
 context = None
 conversation=None
 t=0
@@ -189,14 +190,14 @@ def message(bot, update):
     global context 
     global final  
     global conversation 
-    conversation= ConversationV1(username='username',  # TODO
-                                  password='password',  # TODO
+    conversation= ConversationV1(username='7e8a016b-2c28-4bdd-b6e8-2043febdf43e',  # TODO
+                                  password='Bi3ui0yvDAb0',  # TODO
                                   version='2018-02-16')
                                   
 
     # get response from watson
     response = conversation.message(
-        workspace_id='id',  # TODO
+        workspace_id='154e610f-03b1-43e9-81c0-268b421b1c80',  # TODO
         input={'text': update.message.text},
         context=context)
     context = response['context']
@@ -388,28 +389,28 @@ def message(bot, update):
                 cost=0
                 cur = conn.cursor()
                 print(conn ,cur)
-                cur.execute("Select * from user_ord")
+                cur.execute("Select * from user_ord1")
                 print (cur.fetchone())
                 for i in final:
                                                      
-                    cur.execute("INSERT INTO user_ord(type,size,number) VALUES(?,?,?)",(i['types'],i['size'],i['number']))
+                    cur.execute("INSERT INTO user_ord1(type,size,number) VALUES(?,?,?)",(i['types'],i['size'],i['number']))
                     conn.commit()
-                    cur.execute("SELECT * from coffee_types")
+                    cur.execute("SELECT * from coffee_types1")
                     rows = cur.fetchall()
 
                    
-                    cur.execute("SELECT price from coffee_types where type=?",(i['types'].lower(),))
+                    cur.execute("SELECT price from coffee_types1 where type=?",(i['types'].lower(),))
                     p=cur.fetchone()[0]
-                    
+                    print("price of cofee",p)
                     k =i['size'].lower()
                     if k == 'regular':
-                        cost =(p-5)* int(i['number'])
+                        cost =(p) * int(i['number'])
                    
                     elif k == 'large':
-                       cost = (p+5)* int(i['number'] )
+                       cost = (p+10) * int(i['number'] )
         
                     else:
-                        cost = p * int(i['number'])
+                        cost = p+5 * int(i['number'])
                     
                     sum1+=cost
                    
@@ -424,8 +425,8 @@ def message(bot, update):
                 conn.close()
                 update.message.reply_text("Please pay Rs.%s"% sum1)
                 print("db closed")
-            except:
-                print("DB not working")
+            except Exception as e:
+                print(e , "DB failed")
             finalord.clear()
             currord=[]
             thisord=[]
@@ -446,7 +447,7 @@ def help(bot, update):
 #main function.    
 def main():
     # Create the Updater and pass it your bot's token.
-    updater = Updater('telegram_api')  # TODO
+    updater = Updater('613631299:AAGlnBaw_z3gpUyDnzCNAbu2dE6c6ndvrTw')  # TODO
 
     # Get the dispatcher to register handlers
     dp = updater.dispatcher
@@ -470,5 +471,4 @@ def main():
 if __name__ == '__main__':
    
     main()
-
 
