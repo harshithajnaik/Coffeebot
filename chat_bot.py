@@ -197,7 +197,7 @@ def message(bot, update):
 
     # get response from watson
     response = conversation.message(
-        workspace_id='154e610f-03b1-43e9-81c0-268b421b1c80',  # TODO
+        workspace_id='IBM Watson ID',  # TODO
         input={'text': update.message.text},
         context=context)
     context = response['context']
@@ -447,7 +447,7 @@ def help(bot, update):
 #main function.    
 def main():
     # Create the Updater and pass it your bot's token.
-    updater = Updater('613631299:AAGlnBaw_z3gpUyDnzCNAbu2dE6c6ndvrTw')  # TODO
+    updater = Updater('Chat bot ID')  # TODO
 
     # Get the dispatcher to register handlers
     dp = updater.dispatcher
